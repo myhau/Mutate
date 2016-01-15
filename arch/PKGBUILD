@@ -12,8 +12,8 @@ depends=('qt5-base' 'qt5-x11extras' 'boost' 'gtk2' 'icu'
 'libxkbcommon-x11' 'libsm')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
-source=("https://github.com/qdore/Mutate/archive/v2.4.tar.gz")
-sha512sums=('04d2a9980f578161c9ba2859e3f55d0a4f33ea5551af311fdf2fb8884a6699560b00f30920248e42d8b046dfc495bb414cf2937212db7bb6de9e715615cf5edd')
+source=("https://github.com/myhau/Mutate/archive/v2.4myhau.tar.gz")
+sha512sums=('44b6bcf75fa0e48c3efabe00280e508246b09344a674d227640f61a767332d9b1ff3ebf3d1bcbef3a5672aae561e7201303e6e4a4453587a162d4398cddfd69e')
 install=${_pkgname}.install
 license=('MIT')
 
