@@ -22,6 +22,7 @@ void PlainText::enterCurrentRow()
 
 void PlainText::enterListWidget(int row)
 {
+    bool putTofparse=true;
     if (row < listWidget->count() && row >= 0)
     {
         if ((*val)[row].icon == INTERNETICON)
@@ -37,6 +38,21 @@ void PlainText::enterListWidget(int row)
         {
             std::ofstream out(URLPATH, std::ios::app);
             out << '[' << (*val)[row].text << ']' << std::endl;
+        }
+        try{
+            ConfigParse cp(CONFPATH.c_str());
+            QString text=this->toPlainText();
+            int index = text.indexOf(QChar(' '));
+            if(index>0){
+                text=text.left(index);
+            }
+            string sortByFreq=cp.getValue(text.toStdString(),"SortByFreq");
+            if(sortByFreq.compare("No")==0){
+                putTofparse=false;
+            }
+
+        }catch(...) {
+
         }
         if ((*val)[row].command == "copy")
         {
@@ -77,8 +93,10 @@ void PlainText::enterListWidget(int row)
         if (!(*val)[row].command.empty())
         {
             QProcess::startDetached(QString::fromStdString((*val)[row].command));
-            fparse.addValue((*val)[row].text, 1);
-            fparse.storeValue();
+            if (putTofparse) {
+                fparse.addValue((*val)[row].text, 1);
+                fparse.storeValue();
+            }
         }
     }
 
